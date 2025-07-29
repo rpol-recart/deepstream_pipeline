@@ -1,0 +1,37 @@
+# ... (секции [application], [source0], [source1], [streammux] остаются без изменений)
+
+[ds-pre-process]
+enable=1
+config-file=config_preprocess.txt
+gpu-id=0
+
+# --- ПЕРВЫЙ ВТОРИЧНЫЙ ИНФЕРЕНС (Модель для крышек) ---
+[secondary-gie0]
+enable=1
+config-file=sgie_model_config.txt
+# !!! Обрабатывает ТОЛЬКО объекты, созданные с custom-id=10
+input-object-filter=10;
+# Батч равен количеству ROI для крышек (8+8=16)
+batch-size=16
+process-on-all-sources=1
+gpu-id=0
+# !!! Уникальный ID, который поможет нам опознать результат в Python
+unique-id=20
+
+# --- ВТОРОЙ ВТОРИЧНЫЙ ИНФЕРЕНС (Новая модель) ---
+[secondary-gie1]
+enable=1
+# Укажите путь к конфигу вашей НОВОЙ модели
+config-file=sgie_new_model_config.txt
+# !!! Обрабатывает ТОЛЬКО объекты, созданные с custom-id=11
+input-object-filter=11;
+# Батч равен количеству НОВЫХ ROI (2+2=4)
+batch-size=4
+process-on-all-sources=1
+gpu-id=0
+# !!! Другой уникальный ID для опознания в Python
+unique-id=21
+
+
+[osd]
+# ... (остальные секции остаются без изменений)

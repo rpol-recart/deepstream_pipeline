@@ -1,0 +1,12 @@
+[property]
+gpu-id=0
+net-scale-factor=0.00392156
+# Путь к вашей НОВОЙ модели
+model-file=path/to/your/new_model.etlt 
+labelfile-path=path/to/your/new_labels.txt
+input-dims=3;224;224;0 # Размеры входа для новой модели
+batch-size=4 # Должен совпадать с batch-size в [secondary-gie1]
+# ... остальные параметры вашей модели
+num-detected-classes=2 # Например, smoke, no_smoke
+parse-bbox-func-name=NvDsInferParseCustomYolo
+custom-lib-path=path/to/your/libnvds_infercustomparser.so 
